@@ -9,10 +9,13 @@
 namespace App\Http\Controllers;
 
 
-class MemberController
+use App\Member;
+
+class MemberController extends Controller
 {
     public function info(){
-        return view('member/info',['name' => 'dave']);
+        $name = Member::getMember();
+        return view('member/info',['name' => $name]);
     }
 
     public function list(){
