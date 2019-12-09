@@ -254,4 +254,14 @@ class StudentController extends Controller
         dd($num);die;
     }
 
+    /********************************************* 使用模板 *****************************/
+
+    public function studentInfo(){
+        return view('student.info',['name' => 'dave','students' => ['a','b']]);
+    }
+
+    public function urlTest(){
+        return 'urlTest';
+    }
+
 }

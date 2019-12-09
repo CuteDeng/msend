@@ -216,5 +216,14 @@ Route::get('student/deleteStudent',[
     'uses' => 'StudentController@deleteStudent',
 ]);
 
+Route::get('student/studentInfo',[
+    'uses' => 'StudentController@studentInfo',
+]);
+
+Route::any('student/urlTest',[
+    'as' => 'testurl',
+    'uses' => 'StudentController@urlTest',
+]);
+
 
 
