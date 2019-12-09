@@ -156,5 +156,65 @@ Route::get('student/calStudents',[
     'uses' => 'StudentController@calStudents',
 ]);
 
+Route::get('student/allStudents',[
+    'uses' => 'StudentController@allStudents',
+]);
+
+Route::get('student/oneStudent',[
+    'uses' => 'StudentController@oneStudent',
+]);
+
+Route::get('student/getAllStudents',[
+    'uses' => 'StudentController@getAllStudents',
+]);
+
+Route::get('student/getOneStudent',[
+    'uses' => 'StudentController@getOneStudent',
+]);
+
+Route::get('student/getChunkStudents',[
+    'uses' => 'StudentController@getChunkStudents',
+]);
+
+Route::get('student/countStudent',[
+    'uses' => 'StudentController@countStudent',
+]);
+
+Route::get('student/newStudent',[
+    'uses' => 'StudentController@newStudent',
+]);
+
+Route::get('student/createStudent',[
+    'uses' => 'StudentController@createStudent',
+]);
+
+Route::get('student/firstOrCreateStudent',[
+    'uses' => 'StudentController@firstOrCreateStudent',
+]);
+
+Route::get('student/firstOrNewStudent',[
+    'uses' => 'StudentController@firstOrNewStudent',
+]);
+
+Route::get('student/updateOneStudent',[
+    'uses' => 'StudentController@updateOneStudent',
+]);
+
+Route::get('student/updateStudents',[
+    'uses' => 'StudentController@updateStudents',
+]);
+
+Route::get('student/deleteOneStudent',[
+    'uses' => 'StudentController@deleteOneStudent',
+]);
+
+Route::get('student/destroyStudent',[
+    'uses' => 'StudentController@destroyStudent',
+]);
+
+Route::get('student/deleteStudent',[
+    'uses' => 'StudentController@deleteStudent',
+]);
+
 
 

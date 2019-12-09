@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Student;
 use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
@@ -147,6 +148,110 @@ class StudentController extends Controller
         $aveAge = DB::table('student')->avg('age');
         $sumAge = DB::table('student')->sum('age');
         dump($count,$maxAge,$minAge,$aveAge,$sumAge);die;
+    }
+
+    /********************************************* ORM方式操作數據庫 *****************************/
+
+    public function allStudents(){
+        $students = Student::all()->toArray();
+        dump($students);die;
+    }
+
+    public function oneStudent(){
+        $student = Student::find(1);
+        $student1 = Student::findOrFail(1000);
+        $name = $student1->name;
+        dump($name);die;
+    }
+
+    public function getAllStudents(){
+        $students = Student::get();
+        dd($students);die;
+    }
+
+    public function getOneStudent(){
+        $student = Student::where('id','=','6')
+            ->orderBy('age','desc')
+            ->first();
+        echo $student->created_at;
+        dd($student);die;
+    }
+
+    public function getChunkStudents(){
+         Student::chunk(2,function ($students){
+             var_dump($students);
+         });
+    }
+
+    public function countStudent(){
+        $count = Student::count();
+        $maxAge = Student::max('age');
+        dd($count,$maxAge);die;
+    }
+
+    public function newStudent(){
+        $student = new Student();
+        $student->name = 'jason';
+        $student->age = 30;
+        $bool = $student->save();
+        dd($bool);die;
+    }
+
+    public function createStudent(){
+        $student = Student::create([
+            'name' => 'mild',
+            'age' => 21,
+            'sex' => 30
+        ]);
+        dump($student);die;
+    }
+    //通過屬性查找記錄，不存在則新增
+    public function firstOrCreateStudent(){
+        $student = Student::firstOrCreate([
+           'name' => 'dave'
+        ]);
+        dd($student);
+    }
+
+    //通過屬性查找記錄，不存在則新增實例
+    public function firstOrNewStudent(){
+        $student = Student::firstOrNew([
+            'name' => 'marquis'
+        ]);
+        $bool = $student->save();
+        dd($student,$bool);
+    }
+
+    public function updateOneStudent(){
+        $student = Student::find(14);
+        $student->name = 'travis';
+        $bool = $student->save();
+        dd($bool);die;
+    }
+
+    public function updateStudents(){
+        $num = Student::where('id','<','5')
+            ->update([
+                'age' => 41
+            ]);
+        dd($num);die;
+    }
+
+    public function deleteOneStudent(){
+        $bool = $student = Student::find(14);
+        $student->delete();
+        dd($bool);die;
+    }
+
+    public function destroyStudent(){
+        $num = $student = Student::destroy([12,13]);
+        dd($num);die;
+    }
+
+    public function deleteStudent(){
+        $num = $student = Student::where('id','<','10')
+            ->delete();
+        dd($num);die;
     }
 
 }
