@@ -95,3 +95,66 @@ Route::get('student/update',[
 Route::get('student/delete',[
     'uses' => 'StudentController@delete',
 ]);
+
+Route::get('student/new',[
+    'uses' => 'StudentController@new',
+]);
+
+Route::get('student/getNewId',[
+    'uses' => 'StudentController@getNewId',
+]);
+
+Route::get('student/newStudents',[
+    'uses' => 'StudentController@newStudents',
+]);
+
+Route::get('student/edit',[
+    'uses' => 'StudentController@edit',
+]);
+
+Route::get('student/increAge',[
+    'uses' => 'StudentController@increAge',
+]);
+
+Route::get('student/decreAge',[
+    'uses' => 'StudentController@decreAge',
+]);
+
+Route::get('student/increAgeAndUpdate',[
+    'uses' => 'StudentController@increAgeAndUpdate',
+]);
+
+Route::get('student/remove',[
+    'uses' => 'StudentController@remove',
+]);
+
+Route::get('student/truncateStudent',[
+    'uses' => 'StudentController@truncateStudent',
+]);
+
+Route::get('student/getStudents',[
+    'uses' => 'StudentController@getStudents',
+]);
+
+Route::get('student/findStudents',[
+    'uses' => 'StudentController@findStudents',
+]);
+
+Route::get('student/firstStudent',[
+    'uses' => 'StudentController@firstStudent',
+]);
+
+Route::get('student/fieldsStudents',[
+    'uses' => 'StudentController@fieldsStudents',
+]);
+
+Route::get('student/chunkStudents',[
+    'uses' => 'StudentController@chunkStudents',
+]);
+
+Route::get('student/calStudents',[
+    'uses' => 'StudentController@calStudents',
+]);
+
+
+
