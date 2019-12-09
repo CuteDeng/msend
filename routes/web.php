@@ -80,3 +80,18 @@ Route::get('member/edit',[
 Route::get('member/{id}/update',[
     'uses' => 'MemberController@update',
 ])->where('id','[0-9]+');
+
+Route::get('student/info',[
+    'uses' => 'StudentController@info',
+]);
+
+Route::get('student/add',[
+    'uses' => 'StudentController@add',
+]);
+
+Route::get('student/update',[
+    'uses' => 'StudentController@update',
+]);
+Route::get('student/delete',[
+    'uses' => 'StudentController@delete',
+]);
