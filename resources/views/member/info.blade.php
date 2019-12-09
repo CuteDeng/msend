@@ -1,0 +1,2 @@
+member info
+name : {{$name}}

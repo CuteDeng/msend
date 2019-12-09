@@ -12,7 +12,7 @@ namespace App\Http\Controllers;
 class MemberController
 {
     public function info(){
-        echo 'member info';
+        return view('member/info',['name' => 'dave']);
     }
 
     public function list(){
