@@ -63,8 +63,20 @@ Route::group(['prefix' => 'member'],function() {
     });
 });
 
-
 // 路由別名
 Route::get('test7',['as' => 'aaa',function (){
     return Route('aaa');
 }]);
+
+// 關連控制器
+Route::get('member/info','MemberController@info');
+Route::get('member/list',['uses' => 'MemberController@list']);
+// 起別名
+Route::get('member/edit',[
+'uses' => 'MemberController@edit',
+'as' => 'memberedit'
+]);
+// 參數綁定
+Route::get('member/{id}/update',[
+    'uses' => 'MemberController@update',
+])->where('id','[0-9]+');
