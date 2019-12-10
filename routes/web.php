@@ -262,6 +262,9 @@ Route::group(['middleware' => ['activity']],function (){
     ]);
 });
 
+Route::any('student/index',[
+    'uses' => 'StudentController@index',
+]);
 
 
 

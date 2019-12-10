@@ -397,4 +397,10 @@ class StudentController extends Controller
     public function activity2(){
         echo '活动已经结束';
     }
+
+    /******************************************* Form ****************************/
+    public function index(){
+        $students = Student::paginate(2);
+        return view('student.index',['students' => $students]);
+    }
 }
