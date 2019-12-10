@@ -2,8 +2,8 @@
 
 @section('content')
     @include('common.message')
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div class="card">
+        <div class="card-header">
             学生列表
         </div>
         <table class="table table-striped table-hover ">
@@ -35,6 +35,7 @@
             </tbody>
         </table>
     </div>
+    <br>
     <div class="float-right">
         <div class="pull-right">
             {{$students->render()}}

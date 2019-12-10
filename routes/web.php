@@ -266,6 +266,9 @@ Route::any('student/index',[
     'uses' => 'StudentController@index',
 ]);
 
+Route::any('student/create',[
+    'uses' => 'StudentController@create',
+]);
 
 
 
