@@ -249,6 +249,22 @@ Route::any('student/redirectTest',[
     'uses' => 'StudentController@redirectTest',
 ]);
 
+Route::any('student/activity0',[
+    'uses' => 'StudentController@activity0',
+]);
+
+Route::group(['middleware' => ['activity']],function (){
+    Route::any('student/activity1',[
+        'uses' => 'StudentController@activity1',
+    ]);
+    Route::any('student/activity2',[
+        'uses' => 'StudentController@activity2',
+    ]);
+});
+
+
+
+
 
 
 

@@ -381,4 +381,20 @@ class StudentController extends Controller
         // 返回上一个页面
         return redirect()->back();
     }
+
+    public function middlewareTest(){
+
+    }
+
+    public function activity0(){
+        echo '活动还未开始';
+    }
+
+    public function activity1(){
+        echo '活动正在进行';
+    }
+
+    public function activity2(){
+        echo '活动已经结束';
+    }
 }
