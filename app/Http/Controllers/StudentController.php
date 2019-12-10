@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -317,6 +318,8 @@ class StudentController extends Controller
         session()->put('key2','value2');
         $key2 = session()->get('key2');
         dump($key2);
+        $message = session()->get('message');
+        dump($message);
         die;
     }
 
@@ -358,4 +361,24 @@ class StudentController extends Controller
         die;
     }
 
+    public function responseTest(){
+        $data = [
+            'errorCode' => 0,
+            'errorMessage' => 'success',
+            'data' => []
+        ];
+        return \response()->json($data);
+    }
+
+
+    public function redirectTest(){
+        //重定向
+        return redirect()->route('testurl')->with('test','test');
+        // 或者
+        return redirect()->action('StudentController@sessionTest2')->with('message' ,'flush data aaa');
+        // 或者
+        return redirect('student/sessionTest2')->with('message' ,'flush data');
+        // 返回上一个页面
+        return redirect()->back();
+    }
 }

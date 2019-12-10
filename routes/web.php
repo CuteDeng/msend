@@ -229,6 +229,10 @@ Route::any('student/requestTest',[
     'uses' => 'StudentController@requestTest',
 ]);
 
+Route::any('student/responseTest',[
+    'uses' => 'StudentController@responseTest',
+]);
+
 Route::group(['middleware' => ['web']],function (){
     Route::any('student/sessionTest1',[
         'uses' => 'StudentController@sessionTest1',
@@ -241,6 +245,9 @@ Route::group(['middleware' => ['web']],function (){
     ]);
 });
 
+Route::any('student/redirectTest',[
+    'uses' => 'StudentController@redirectTest',
+]);
 
 
 
