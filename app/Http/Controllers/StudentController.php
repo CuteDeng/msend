@@ -10,7 +10,9 @@ namespace App\Http\Controllers;
 
 
 use App\Student;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class StudentController extends Controller
 {
@@ -262,6 +264,98 @@ class StudentController extends Controller
 
     public function urlTest(){
         return 'urlTest';
+    }
+
+    /******************************************* Controller ****************************/
+
+    public function requestTest(Request $request){
+        // 取值
+        $name = $request->input('name','dave');
+        dump($name);
+        // 判斷有沒有值
+        if($request->has('name')){
+            echo $request->input('name');
+        }else{
+            echo '不存在';
+        }
+        // 獲取url中所有參賽
+        $params = $request->all();
+        dump($params);
+        // 判斷請求類型
+        $method = $request->method();
+        dump($method);
+        if($request->isMethod('GET')){
+            echo  'yes';
+        }else{
+            echo  'no';
+        }
+        //判斷是否是ajax
+        if($request->ajax()){
+            echo 'ajax request';
+        }
+        // 判斷請求格式
+        if($request->is('student/*')){
+            dump('success');
+        }else{
+            dump('fail');
+        }
+        // 獲取當前url
+        dump($request->url());
+        die;
+    }
+
+    public function sessionTest1(Request $request){
+        // 使用$request的session()方法操作session
+        $request->session()->put('key1','value1');
+        $key1 = $request->session()->get('key1');
+        dump($key1);
+        die;
+    }
+
+    public function sessionTest2(){
+        // 使用session辅助函数
+        session()->put('key2','value2');
+        $key2 = session()->get('key2');
+        dump($key2);
+        die;
+    }
+
+    public function sessionTest3(){
+        // 使用Session类
+        Session::put('key3','value3');
+        $key3 = Session::get('key3');
+        dump($key3);
+        $key4 = Session::get('key4','value4');
+        dump($key4);
+        Session::put(['key5' => 'value5','key6' => 'value6']);
+        $key5 = Session::get('key5');
+        $key6 = Session::get('key6');
+        dump($key5);
+        dump($key6);
+        // 使用数组的方式存储session
+        Session::push('key','value7');
+        Session::push('key','value8');
+        $key7 = Session::get('key');
+        dump($key7);
+        // 从session中取出后删除该session
+        $key7 = Session::pull('key');
+        dump($key7);
+        //判断某个session是否存在
+        $bool = Session::has('key');
+        dump($bool);
+        // 从session中取出所有值
+        $all = Session::all();
+        dump($all);
+        // 删除session
+        Session::forget('key3');
+        dump(Session::has('key3'));
+        // 清空session
+        Session::flush();
+        dump(Session::all());
+        // 暂存session,只保存一次请求
+        Session::flash('key8','value8');
+        dump(Session::get('key8'));
+        die;
     }
 
 }

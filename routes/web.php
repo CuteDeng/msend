@@ -225,5 +225,23 @@ Route::any('student/urlTest',[
     'uses' => 'StudentController@urlTest',
 ]);
 
+Route::any('student/requestTest',[
+    'uses' => 'StudentController@requestTest',
+]);
+
+Route::group(['middleware' => ['web']],function (){
+    Route::any('student/sessionTest1',[
+        'uses' => 'StudentController@sessionTest1',
+    ]);
+    Route::any('student/sessionTest2',[
+        'uses' => 'StudentController@sessionTest2',
+    ]);
+    Route::any('student/sessionTest3',[
+        'uses' => 'StudentController@sessionTest3',
+    ]);
+});
+
+
+
 
 
