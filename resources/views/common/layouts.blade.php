@@ -26,12 +26,13 @@
             <div class="col-md-3">
                 @section('listmenu')
                 <div class="list-group">
-                    <div class="list-group-item active">
+
+                    <a href="{{url('student/index')}}" class="list-group-item {{Request::path() == 'student/index' ? 'active' : ''}}">
                         学生列表
-                    </div>
-                    <div class="list-group-item">
+                    </a>
+                    <a href="{{url('student/create')}}" class="list-group-item {{Request::path() == 'student/create' ? 'active' : ''}}">
                         新增学生
-                    </div>
+                    </a>
                 </div>
                 @show
             </div>

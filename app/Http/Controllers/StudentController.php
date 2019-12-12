@@ -405,7 +405,29 @@ class StudentController extends Controller
         return view('student.index',['students' => $students]);
     }
 
-    public function create(){
+    public function create(Request $request){
+        if($request->isMethod('POST')){
+            $data = $request->input('Student');
+            if(Student::create($data)){
+                return redirect('student/index')->with('success','添加成功');
+            }else{
+                return redirect()->back();
+            }
+        }
         return view('student.create');
+    }
+
+    public function save(Request $request){
+        $data = $request->input('Student');
+        $student = new Student();
+        $student->name = $data['name'];
+        $student->age = $data['age'];
+        $student->sex = $data['sex'];
+
+        if($student->save()){
+            return redirect('student/index');
+        }else{
+            return redirect()->back();
+        }
     }
 }
