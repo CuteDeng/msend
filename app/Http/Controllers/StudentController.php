@@ -11,9 +11,9 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -405,13 +405,51 @@ class StudentController extends Controller
         return view('student.index',['students' => $students]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function create(Request $request){
         if($request->isMethod('POST')){
+            // 表单验证，控制器验证
+//            $this->validate($request,[
+//               'Student.name' => 'required|min:2|max:20',
+//               'Student.age' => 'required|integer',
+//               'Student.sex' => 'required|integer',
+//            ],[
+//                'required' => ':attribute 为必填项',
+//                'min' => ':attribute 长度不符合要求',
+//                'max' => ':attribute 为必填项',
+//                'integer' => ':attribute 必须为整数',
+//            ],[
+//                'Student.name' => '姓名',
+//                'Student.age' => '年龄',
+//                'Student.sex' => '性别',
+//            ]);
+            // 表单验证，Validator类验证
+            $validator = Validator::make($request->input(),[
+                'Student.name' => 'required|min:2|max:20',
+                'Student.age' => 'required|integer',
+                'Student.sex' => 'required|integer',
+            ],[
+                'required' => ':attribute 为必填项',
+                'min' => ':attribute 长度不符合要求',
+                'max' => ':attribute 为必填项',
+                'integer' => ':attribute 必须为整数',
+            ],[
+                'Student.name' => '姓名',
+                'Student.age' => '年龄',
+                'Student.sex' => '性别',
+            ]);
+            if($validator->fails()){
+                return redirect()->back()->withErrors($validator);
+            }
             $data = $request->input('Student');
             if(Student::create($data)){
                 return redirect('student/index')->with('success','添加成功');
             }else{
-                return redirect()->back();
+                return redirect()->back()->with('error','添加失败');
             }
         }
         return view('student.create');
