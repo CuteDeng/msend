@@ -401,7 +401,7 @@ class StudentController extends Controller
     /******************************************* Form ****************************/
 
     public function index(){
-        $students = Student::paginate(2);
+        $students = Student::paginate(10);
         return view('student.index',['students' => $students]);
     }
 
@@ -411,6 +411,7 @@ class StudentController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function create(Request $request){
+        $studnet = new Student();
         if($request->isMethod('POST')){
             // 表单验证，控制器验证
 //            $this->validate($request,[
@@ -443,16 +444,19 @@ class StudentController extends Controller
                 'Student.sex' => '性别',
             ]);
             if($validator->fails()){
-                return redirect()->back()->withErrors($validator);
+                return redirect()->back()->withErrors($validator)->withInput();
             }
             $data = $request->input('Student');
+
             if(Student::create($data)){
                 return redirect('student/index')->with('success','添加成功');
             }else{
                 return redirect()->back()->with('error','添加失败');
             }
         }
-        return view('student.create');
+        return view('student.create',[
+            'student' => $studnet
+        ]);
     }
 
     public function save(Request $request){
