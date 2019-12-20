@@ -35,10 +35,10 @@ class StudentController extends Controller
 //        dump($num);die;
 //    }
 
-    public function delete(){
-        $num = DB::delete('delete from student where name = ?',['dave']);
-        dump($num);die;
-    }
+//    public function delete(){
+//        $num = DB::delete('delete from student where name = ?',['dave']);
+//        dump($num);die;
+//    }
 
 /********************************************* 查詢構造器方式操作數據庫 *****************************/
 
@@ -500,5 +500,21 @@ class StudentController extends Controller
         return view('student.update',[
             'student' => $student
         ]);
+    }
+
+    public function detail($id){
+        $student = Student::find($id);
+        return view('student.detail',[
+            'student' => $student
+        ]);
+    }
+
+    public function delete($id){
+        $student = Student::find($id);
+        if($student->delete()){
+            return redirect('student/index')->with('success','刪除成功 =>'.$id);
+        }else{
+            return redirect('student/index')->with('error','刪除失敗 =>'.$id);
+        }
     }
 }
