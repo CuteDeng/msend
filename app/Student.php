@@ -46,7 +46,7 @@ class Student extends Model
     /**
      * @return array
      */
-    public function sex($index = null){
+    public function sexInfo($index = null){
         $arr = [
           self::SEX_UN => '未知',
           self::SEX_BOY => '男',

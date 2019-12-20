@@ -30,10 +30,10 @@ class StudentController extends Controller
         dump($bool);die;
     }
 
-    public function update(){
-        $num = DB::update('update student set age = ? where name = ?',[20,'dave']);
-        dump($num);die;
-    }
+//    public function update(){
+//        $num = DB::update('update student set age = ? where name = ?',[20,'dave']);
+//        dump($num);die;
+//    }
 
     public function delete(){
         $num = DB::delete('delete from student where name = ?',['dave']);
@@ -400,6 +400,9 @@ class StudentController extends Controller
 
     /******************************************* Form ****************************/
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(){
         $students = Student::paginate(10);
         return view('student.index',['students' => $students]);
@@ -408,26 +411,11 @@ class StudentController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function create(Request $request){
         $studnet = new Student();
         if($request->isMethod('POST')){
-            // 表单验证，控制器验证
-//            $this->validate($request,[
-//               'Student.name' => 'required|min:2|max:20',
-//               'Student.age' => 'required|integer',
-//               'Student.sex' => 'required|integer',
-//            ],[
-//                'required' => ':attribute 为必填项',
-//                'min' => ':attribute 长度不符合要求',
-//                'max' => ':attribute 为必填项',
-//                'integer' => ':attribute 必须为整数',
-//            ],[
-//                'Student.name' => '姓名',
-//                'Student.age' => '年龄',
-//                'Student.sex' => '性别',
-//            ]);
+
             // 表单验证，Validator类验证
             $validator = Validator::make($request->input(),[
                 'Student.name' => 'required|min:2|max:20',
@@ -459,6 +447,10 @@ class StudentController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function save(Request $request){
         $data = $request->input('Student');
         $student = new Student();
@@ -471,5 +463,42 @@ class StudentController extends Controller
         }else{
             return redirect()->back();
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function update(Request $request,$id) {
+        $student = Student::find($id);
+        if($request->isMethod('POST')){
+            // 表单验证，控制器验证
+            $this->validate($request,[
+               'Student.name' => 'required|min:2|max:20',
+               'Student.age' => 'required|integer',
+               'Student.sex' => 'required|integer',
+            ],[
+                'required' => ':attribute 为必填项',
+                'min' => ':attribute 长度不符合要求',
+                'max' => ':attribute 为必填项',
+                'integer' => ':attribute 必须为整数',
+            ],[
+                'Student.name' => '姓名',
+                'Student.age' => '年龄',
+                'Student.sex' => '性别',
+            ]);
+            $data = $request->input('Student');
+            $student->name = $data['name'];
+            $student->age = $data['age'];
+            $student->sex = $data['sex'];
+            if($student->save()){
+                return redirect('student/index')->with('success','修改成功 => '.$id);
+            }
+        }
+        return view('student.update',[
+            'student' => $student
+        ]);
     }
 }
